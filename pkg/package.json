@@ -1,0 +1,21 @@
+{
+  "name": "demo_rust_elm",
+  "collaborators": [
+    "jsrmalvarez <jsrmalvarez@ninjatic.engineer>"
+  ],
+  "description": "Rust and elm sample project",
+  "version": "0.1.0",
+  "license": "MIT/Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jsrmalvarez/demo_rust_elm"
+  },
+  "files": [
+    "demo_rust_elm_bg.wasm",
+    "demo_rust_elm.js",
+    "demo_rust_elm.d.ts"
+  ],
+  "module": "demo_rust_elm.js",
+  "types": "demo_rust_elm.d.ts",
+  "sideEffects": false
+}
