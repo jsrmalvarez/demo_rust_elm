@@ -8,7 +8,7 @@
     <div id="elm-app"></div>
     <script src="elm/elm.js" type="text/javascript"></script>
     <script type="module">
-      import init, {greet} from "pkg/demo_rust_elm.js";
+      import init, {greet} from "./pkg/demo_rust_elm.js";
       init()
         .then(() => {
           greet("WebAssembly")
