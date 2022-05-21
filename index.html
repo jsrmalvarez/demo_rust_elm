@@ -18,6 +18,10 @@
       var app = Elm.Main.init({
         node: document.getElementById("elm-app")
       });      
+
+      app.ports.sendMessage.subscribe(function(message) {
+          alert("Received from elm:" + message);
+      });
     </script>
   </body>
 </html>
