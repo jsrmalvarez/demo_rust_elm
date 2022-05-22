@@ -784,11 +784,11 @@ function _Debug_crash_UNUSED(identifier, fact1, fact2, fact3, fact4)
 
 function _Debug_regionToString(region)
 {
-	if (region.L.B === region.Q.B)
+	if (region.N.A === region.S.A)
 	{
-		return 'on line ' + region.L.B;
+		return 'on line ' + region.N.A;
 	}
-	return 'on lines ' + region.L.B + ' through ' + region.Q.B;
+	return 'on lines ' + region.N.A + ' through ' + region.S.A;
 }
 
 
@@ -1857,9 +1857,9 @@ var _Platform_worker = F4(function(impl, flagDecoder, debugMetadata, args)
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.aw,
+		impl.ay,
+		impl.aG,
 		impl.aE,
-		impl.aC,
 		function() { return function() {} }
 	);
 });
@@ -2720,8 +2720,8 @@ var _VirtualDom_mapEventRecord = F2(function(func, record)
 {
 	return {
 		o: func(record.o),
-		M: record.M,
-		J: record.J
+		O: record.O,
+		L: record.L
 	}
 });
 
@@ -2990,10 +2990,10 @@ function _VirtualDom_makeCallback(eventNode, initialHandler)
 
 		var value = result.a;
 		var message = !tag ? value : tag < 3 ? value.a : value.o;
-		var stopPropagation = tag == 1 ? value.b : tag == 3 && value.M;
+		var stopPropagation = tag == 1 ? value.b : tag == 3 && value.O;
 		var currentEventNode = (
 			stopPropagation && event.stopPropagation(),
-			(tag == 2 ? value.b : tag == 3 && value.J) && event.preventDefault(),
+			(tag == 2 ? value.b : tag == 3 && value.L) && event.preventDefault(),
 			eventNode
 		);
 		var tagger;
@@ -3943,11 +3943,11 @@ var _Browser_element = _Debugger_element || F4(function(impl, flagDecoder, debug
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.aw,
+		impl.ay,
+		impl.aG,
 		impl.aE,
-		impl.aC,
 		function(sendToApp, initialModel) {
-			var view = impl.aF;
+			var view = impl.aH;
 			/**/
 			var domNode = args['node'];
 			//*/
@@ -3979,12 +3979,12 @@ var _Browser_document = _Debugger_document || F4(function(impl, flagDecoder, deb
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.aw,
+		impl.ay,
+		impl.aG,
 		impl.aE,
-		impl.aC,
 		function(sendToApp, initialModel) {
-			var divertHrefToApp = impl.K && impl.K(sendToApp)
-			var view = impl.aF;
+			var divertHrefToApp = impl.M && impl.M(sendToApp)
+			var view = impl.aH;
 			var title = _VirtualDom_doc.title;
 			var bodyNode = _VirtualDom_doc.body;
 			var currNode = _VirtualDom_virtualize(bodyNode);
@@ -3992,12 +3992,12 @@ var _Browser_document = _Debugger_document || F4(function(impl, flagDecoder, deb
 			{
 				_VirtualDom_divertHrefToApp = divertHrefToApp;
 				var doc = view(model);
-				var nextNode = _VirtualDom_node('body')(_List_Nil)(doc.ap);
+				var nextNode = _VirtualDom_node('body')(_List_Nil)(doc.ar);
 				var patches = _VirtualDom_diff(currNode, nextNode);
 				bodyNode = _VirtualDom_applyPatches(bodyNode, currNode, patches, sendToApp);
 				currNode = nextNode;
 				_VirtualDom_divertHrefToApp = 0;
-				(title !== doc.aD) && (_VirtualDom_doc.title = title = doc.aD);
+				(title !== doc.aF) && (_VirtualDom_doc.title = title = doc.aF);
 			});
 		}
 	);
@@ -4053,12 +4053,12 @@ function _Browser_makeAnimator(model, draw)
 
 function _Browser_application(impl)
 {
-	var onUrlChange = impl.ay;
-	var onUrlRequest = impl.az;
+	var onUrlChange = impl.aA;
+	var onUrlRequest = impl.aB;
 	var key = function() { key.a(onUrlChange(_Browser_getUrl())); };
 
 	return _Browser_document({
-		K: function(sendToApp)
+		M: function(sendToApp)
 		{
 			key.a = sendToApp;
 			_Browser_window.addEventListener('popstate', key);
@@ -4074,9 +4074,9 @@ function _Browser_application(impl)
 					var next = $elm$url$Url$fromString(href).a;
 					sendToApp(onUrlRequest(
 						(next
-							&& curr.ac === next.ac
-							&& curr.U === next.U
-							&& curr._.a === next._.a
+							&& curr.ae === next.ae
+							&& curr.W === next.W
+							&& curr.ab.a === next.ab.a
 						)
 							? $elm$browser$Browser$Internal(next)
 							: $elm$browser$Browser$External(href)
@@ -4084,13 +4084,13 @@ function _Browser_application(impl)
 				}
 			});
 		},
-		aw: function(flags)
+		ay: function(flags)
 		{
-			return A3(impl.aw, flags, _Browser_getUrl(), key);
+			return A3(impl.ay, flags, _Browser_getUrl(), key);
 		},
-		aF: impl.aF,
-		aE: impl.aE,
-		aC: impl.aC
+		aH: impl.aH,
+		aG: impl.aG,
+		aE: impl.aE
 	});
 }
 
@@ -4156,17 +4156,17 @@ var _Browser_decodeEvent = F2(function(decoder, event)
 function _Browser_visibilityInfo()
 {
 	return (typeof _VirtualDom_doc.hidden !== 'undefined')
-		? { au: 'hidden', aq: 'visibilitychange' }
+		? { aw: 'hidden', as: 'visibilitychange' }
 		:
 	(typeof _VirtualDom_doc.mozHidden !== 'undefined')
-		? { au: 'mozHidden', aq: 'mozvisibilitychange' }
+		? { aw: 'mozHidden', as: 'mozvisibilitychange' }
 		:
 	(typeof _VirtualDom_doc.msHidden !== 'undefined')
-		? { au: 'msHidden', aq: 'msvisibilitychange' }
+		? { aw: 'msHidden', as: 'msvisibilitychange' }
 		:
 	(typeof _VirtualDom_doc.webkitHidden !== 'undefined')
-		? { au: 'webkitHidden', aq: 'webkitvisibilitychange' }
-		: { au: 'hidden', aq: 'visibilitychange' };
+		? { aw: 'webkitHidden', as: 'webkitvisibilitychange' }
+		: { aw: 'hidden', as: 'visibilitychange' };
 }
 
 
@@ -4247,12 +4247,12 @@ var _Browser_call = F2(function(functionName, id)
 function _Browser_getViewport()
 {
 	return {
-		ag: _Browser_getScene(),
-		aj: {
-			al: _Browser_window.pageXOffset,
-			am: _Browser_window.pageYOffset,
-			ak: _Browser_doc.documentElement.clientWidth,
-			T: _Browser_doc.documentElement.clientHeight
+		ai: _Browser_getScene(),
+		al: {
+			an: _Browser_window.pageXOffset,
+			ao: _Browser_window.pageYOffset,
+			am: _Browser_doc.documentElement.clientWidth,
+			V: _Browser_doc.documentElement.clientHeight
 		}
 	};
 }
@@ -4262,8 +4262,8 @@ function _Browser_getScene()
 	var body = _Browser_doc.body;
 	var elem = _Browser_doc.documentElement;
 	return {
-		ak: Math.max(body.scrollWidth, body.offsetWidth, elem.scrollWidth, elem.offsetWidth, elem.clientWidth),
-		T: Math.max(body.scrollHeight, body.offsetHeight, elem.scrollHeight, elem.offsetHeight, elem.clientHeight)
+		am: Math.max(body.scrollWidth, body.offsetWidth, elem.scrollWidth, elem.offsetWidth, elem.clientWidth),
+		V: Math.max(body.scrollHeight, body.offsetHeight, elem.scrollHeight, elem.offsetHeight, elem.clientHeight)
 	};
 }
 
@@ -4286,15 +4286,15 @@ function _Browser_getViewportOf(id)
 	return _Browser_withNode(id, function(node)
 	{
 		return {
-			ag: {
-				ak: node.scrollWidth,
-				T: node.scrollHeight
+			ai: {
+				am: node.scrollWidth,
+				V: node.scrollHeight
 			},
-			aj: {
-				al: node.scrollLeft,
-				am: node.scrollTop,
-				ak: node.clientWidth,
-				T: node.clientHeight
+			al: {
+				an: node.scrollLeft,
+				ao: node.scrollTop,
+				am: node.clientWidth,
+				V: node.clientHeight
 			}
 		};
 	});
@@ -4324,18 +4324,18 @@ function _Browser_getElement(id)
 		var x = _Browser_window.pageXOffset;
 		var y = _Browser_window.pageYOffset;
 		return {
-			ag: _Browser_getScene(),
-			aj: {
-				al: x,
-				am: y,
-				ak: _Browser_doc.documentElement.clientWidth,
-				T: _Browser_doc.documentElement.clientHeight
+			ai: _Browser_getScene(),
+			al: {
+				an: x,
+				ao: y,
+				am: _Browser_doc.documentElement.clientWidth,
+				V: _Browser_doc.documentElement.clientHeight
 			},
-			as: {
-				al: x + rect.left,
-				am: y + rect.top,
-				ak: rect.width,
-				T: rect.height
+			au: {
+				an: x + rect.left,
+				ao: y + rect.top,
+				am: rect.width,
+				V: rect.height
 			}
 		};
 	});
@@ -4370,184 +4370,6 @@ function _Browser_load(url)
 		}
 	}));
 }
-
-
-
-// DECODER
-
-var _File_decoder = _Json_decodePrim(function(value) {
-	// NOTE: checks if `File` exists in case this is run on node
-	return (typeof File !== 'undefined' && value instanceof File)
-		? $elm$core$Result$Ok(value)
-		: _Json_expecting('a FILE', value);
-});
-
-
-// METADATA
-
-function _File_name(file) { return file.name; }
-function _File_mime(file) { return file.type; }
-function _File_size(file) { return file.size; }
-
-function _File_lastModified(file)
-{
-	return $elm$time$Time$millisToPosix(file.lastModified);
-}
-
-
-// DOWNLOAD
-
-var _File_downloadNode;
-
-function _File_getDownloadNode()
-{
-	return _File_downloadNode || (_File_downloadNode = document.createElement('a'));
-}
-
-var _File_download = F3(function(name, mime, content)
-{
-	return _Scheduler_binding(function(callback)
-	{
-		var blob = new Blob([content], {type: mime});
-
-		// for IE10+
-		if (navigator.msSaveOrOpenBlob)
-		{
-			navigator.msSaveOrOpenBlob(blob, name);
-			return;
-		}
-
-		// for HTML5
-		var node = _File_getDownloadNode();
-		var objectUrl = URL.createObjectURL(blob);
-		node.href = objectUrl;
-		node.download = name;
-		_File_click(node);
-		URL.revokeObjectURL(objectUrl);
-	});
-});
-
-function _File_downloadUrl(href)
-{
-	return _Scheduler_binding(function(callback)
-	{
-		var node = _File_getDownloadNode();
-		node.href = href;
-		node.download = '';
-		node.origin === location.origin || (node.target = '_blank');
-		_File_click(node);
-	});
-}
-
-
-// IE COMPATIBILITY
-
-function _File_makeBytesSafeForInternetExplorer(bytes)
-{
-	// only needed by IE10 and IE11 to fix https://github.com/elm/file/issues/10
-	// all other browsers can just run `new Blob([bytes])` directly with no problem
-	//
-	return new Uint8Array(bytes.buffer, bytes.byteOffset, bytes.byteLength);
-}
-
-function _File_click(node)
-{
-	// only needed by IE10 and IE11 to fix https://github.com/elm/file/issues/11
-	// all other browsers have MouseEvent and do not need this conditional stuff
-	//
-	if (typeof MouseEvent === 'function')
-	{
-		node.dispatchEvent(new MouseEvent('click'));
-	}
-	else
-	{
-		var event = document.createEvent('MouseEvents');
-		event.initMouseEvent('click', true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
-		document.body.appendChild(node);
-		node.dispatchEvent(event);
-		document.body.removeChild(node);
-	}
-}
-
-
-// UPLOAD
-
-var _File_node;
-
-function _File_uploadOne(mimes)
-{
-	return _Scheduler_binding(function(callback)
-	{
-		_File_node = document.createElement('input');
-		_File_node.type = 'file';
-		_File_node.accept = A2($elm$core$String$join, ',', mimes);
-		_File_node.addEventListener('change', function(event)
-		{
-			callback(_Scheduler_succeed(event.target.files[0]));
-		});
-		_File_click(_File_node);
-	});
-}
-
-function _File_uploadOneOrMore(mimes)
-{
-	return _Scheduler_binding(function(callback)
-	{
-		_File_node = document.createElement('input');
-		_File_node.type = 'file';
-		_File_node.multiple = true;
-		_File_node.accept = A2($elm$core$String$join, ',', mimes);
-		_File_node.addEventListener('change', function(event)
-		{
-			var elmFiles = _List_fromArray(event.target.files);
-			callback(_Scheduler_succeed(_Utils_Tuple2(elmFiles.a, elmFiles.b)));
-		});
-		_File_click(_File_node);
-	});
-}
-
-
-// CONTENT
-
-function _File_toString(blob)
-{
-	return _Scheduler_binding(function(callback)
-	{
-		var reader = new FileReader();
-		reader.addEventListener('loadend', function() {
-			callback(_Scheduler_succeed(reader.result));
-		});
-		reader.readAsText(blob);
-		return function() { reader.abort(); };
-	});
-}
-
-function _File_toBytes(blob)
-{
-	return _Scheduler_binding(function(callback)
-	{
-		var reader = new FileReader();
-		reader.addEventListener('loadend', function() {
-			callback(_Scheduler_succeed(new DataView(reader.result)));
-		});
-		reader.readAsArrayBuffer(blob);
-		return function() { reader.abort(); };
-	});
-}
-
-function _File_toUrl(blob)
-{
-	return _Scheduler_binding(function(callback)
-	{
-		var reader = new FileReader();
-		reader.addEventListener('loadend', function() {
-			callback(_Scheduler_succeed(reader.result));
-		});
-		reader.readAsDataURL(blob);
-		return function() { reader.abort(); };
-	});
-}
-
 var $elm$core$Basics$EQ = 1;
 var $elm$core$Basics$GT = 2;
 var $elm$core$Basics$LT = 0;
@@ -5052,7 +4874,7 @@ var $elm$url$Url$Http = 0;
 var $elm$url$Url$Https = 1;
 var $elm$url$Url$Url = F6(
 	function (protocol, host, port_, path, query, fragment) {
-		return {S: fragment, U: host, Y: path, _: port_, ac: protocol, ad: query};
+		return {U: fragment, W: host, _: path, ab: port_, ae: protocol, af: query};
 	});
 var $elm$core$String$contains = _String_contains;
 var $elm$core$String$length = _String_length;
@@ -5333,117 +5155,83 @@ var $elm$core$Task$perform = F2(
 var $elm$browser$Browser$element = _Browser_element;
 var $elm$core$Platform$Cmd$batch = _Platform_batch;
 var $elm$core$Platform$Cmd$none = $elm$core$Platform$Cmd$batch(_List_Nil);
-var $author$project$Main$initialModel = function (_v0) {
+var $author$project$Main$init = function (_v0) {
 	return _Utils_Tuple2(
-		{r: _List_Nil},
+		{y: '30', F: '10', G: 'Škoda', H: 'Superb', I: '2015'},
 		$elm$core$Platform$Cmd$none);
 };
 var $elm$core$Platform$Sub$batch = _Platform_batch;
 var $elm$core$Platform$Sub$none = $elm$core$Platform$Sub$batch(_List_Nil);
-var $author$project$Main$FileReadSuccess = F2(
-	function (a, b) {
-		return {$: 2, a: a, b: b};
-	});
-var $author$project$Main$MyFile = F2(
-	function (buff, content) {
-		return {A: buff, G: content};
-	});
-var $author$project$Main$Read = {$: 1};
-var $elm$time$Time$Posix = $elm$core$Basics$identity;
-var $elm$time$Time$millisToPosix = $elm$core$Basics$identity;
-var $elm$file$File$name = _File_name;
 var $elm$json$Json$Encode$string = _Json_wrap;
 var $author$project$Main$sendMessage = _Platform_outgoingPort('sendMessage', $elm$json$Json$Encode$string);
-var $elm$file$File$toString = _File_toString;
 var $author$project$Main$update = F2(
 	function (msg, model) {
 		switch (msg.$) {
+			case 0:
+				var age = msg.a;
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{y: age}),
+					$elm$core$Platform$Cmd$none);
+			case 1:
+				var drivingExperience = msg.a;
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{F: drivingExperience}),
+					$elm$core$Platform$Cmd$none);
+			case 2:
+				var vehicleMake = msg.a;
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{G: vehicleMake}),
+					$elm$core$Platform$Cmd$none);
 			case 3:
+				var vehicleModel = msg.a;
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{H: vehicleModel}),
+					$elm$core$Platform$Cmd$none);
+			case 4:
+				var vehicleYear = msg.a;
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{I: vehicleYear}),
+					$elm$core$Platform$Cmd$none);
+			case 5:
+				return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
+			default:
 				var m = msg.a;
 				return _Utils_Tuple2(
 					model,
 					$author$project$Main$sendMessage(m));
-			case 0:
-				var files = msg.a;
-				return A2(
-					$author$project$Main$update,
-					$author$project$Main$Read,
-					_Utils_update(
-						model,
-						{
-							r: A2(
-								$elm$core$List$map,
-								function (file) {
-									return A2($author$project$Main$MyFile, file, '');
-								},
-								files)
-						}));
-			case 1:
-				return _Utils_Tuple2(
-					model,
-					$elm$core$Platform$Cmd$batch(
-						A2(
-							$elm$core$List$map,
-							function (file) {
-								return A2(
-									$elm$core$Task$perform,
-									$author$project$Main$FileReadSuccess(
-										$elm$file$File$name(file.A)),
-									$elm$file$File$toString(file.A));
-							},
-							model.r)));
-			default:
-				var name = msg.a;
-				var content = msg.b;
-				return _Utils_Tuple2(
-					_Utils_update(
-						model,
-						{
-							r: A2(
-								$elm$core$List$map,
-								function (file) {
-									return _Utils_eq(
-										$elm$file$File$name(file.A),
-										name) ? _Utils_update(
-										file,
-										{G: content}) : file;
-								},
-								model.r)
-						}),
-					$elm$core$Platform$Cmd$none);
 		}
 	});
-var $author$project$Main$ChooseFiles = function (a) {
+var $author$project$Main$Age = function (a) {
 	return {$: 0, a: a};
 };
+var $author$project$Main$DrivingExperience = function (a) {
+	return {$: 1, a: a};
+};
 var $author$project$Main$Send = function (a) {
+	return {$: 6, a: a};
+};
+var $author$project$Main$VehicleMake = function (a) {
+	return {$: 2, a: a};
+};
+var $author$project$Main$VehicleModel = function (a) {
 	return {$: 3, a: a};
+};
+var $author$project$Main$VehicleYear = function (a) {
+	return {$: 4, a: a};
 };
 var $elm$html$Html$button = _VirtualDom_node('button');
 var $elm$html$Html$div = _VirtualDom_node('div');
-var $elm$json$Json$Decode$field = _Json_decodeField;
-var $elm$json$Json$Decode$at = F2(
-	function (fields, decoder) {
-		return A3($elm$core$List$foldr, $elm$json$Json$Decode$field, decoder, fields);
-	});
-var $elm$file$File$decoder = _File_decoder;
-var $elm$json$Json$Decode$list = _Json_decodeList;
-var $author$project$Main$filesDecoder = A2(
-	$elm$json$Json$Decode$at,
-	_List_fromArray(
-		['target', 'files']),
-	$elm$json$Json$Decode$list($elm$file$File$decoder));
-var $elm$html$Html$hr = _VirtualDom_node('hr');
-var $elm$html$Html$input = _VirtualDom_node('input');
-var $elm$json$Json$Encode$bool = _Json_wrap;
-var $elm$html$Html$Attributes$boolProperty = F2(
-	function (key, bool) {
-		return A2(
-			_VirtualDom_property,
-			key,
-			$elm$json$Json$Encode$bool(bool));
-	});
-var $elm$html$Html$Attributes$multiple = $elm$html$Html$Attributes$boolProperty('multiple');
+var $elm$html$Html$h2 = _VirtualDom_node('h2');
 var $elm$virtual_dom$VirtualDom$Normal = function (a) {
 	return {$: 0, a: a};
 };
@@ -5461,9 +5249,42 @@ var $elm$html$Html$Events$onClick = function (msg) {
 		'click',
 		$elm$json$Json$Decode$succeed(msg));
 };
-var $elm$html$Html$p = _VirtualDom_node('p');
 var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
+var $elm$html$Html$input = _VirtualDom_node('input');
+var $elm$html$Html$Events$alwaysStop = function (x) {
+	return _Utils_Tuple2(x, true);
+};
+var $elm$virtual_dom$VirtualDom$MayStopPropagation = function (a) {
+	return {$: 1, a: a};
+};
+var $elm$html$Html$Events$stopPropagationOn = F2(
+	function (event, decoder) {
+		return A2(
+			$elm$virtual_dom$VirtualDom$on,
+			event,
+			$elm$virtual_dom$VirtualDom$MayStopPropagation(decoder));
+	});
+var $elm$json$Json$Decode$field = _Json_decodeField;
+var $elm$json$Json$Decode$at = F2(
+	function (fields, decoder) {
+		return A3($elm$core$List$foldr, $elm$json$Json$Decode$field, decoder, fields);
+	});
+var $elm$json$Json$Decode$string = _Json_decodeString;
+var $elm$html$Html$Events$targetValue = A2(
+	$elm$json$Json$Decode$at,
+	_List_fromArray(
+		['target', 'value']),
+	$elm$json$Json$Decode$string);
+var $elm$html$Html$Events$onInput = function (tagger) {
+	return A2(
+		$elm$html$Html$Events$stopPropagationOn,
+		'input',
+		A2(
+			$elm$json$Json$Decode$map,
+			$elm$html$Html$Events$alwaysStop,
+			A2($elm$json$Json$Decode$map, tagger, $elm$html$Html$Events$targetValue)));
+};
 var $elm$html$Html$Attributes$stringProperty = F2(
 	function (key, string) {
 		return A2(
@@ -5471,7 +5292,60 @@ var $elm$html$Html$Attributes$stringProperty = F2(
 			key,
 			$elm$json$Json$Encode$string(string));
 	});
+var $elm$html$Html$Attributes$placeholder = $elm$html$Html$Attributes$stringProperty('placeholder');
 var $elm$html$Html$Attributes$type_ = $elm$html$Html$Attributes$stringProperty('type');
+var $elm$html$Html$Attributes$value = $elm$html$Html$Attributes$stringProperty('value');
+var $author$project$Main$viewInputText = F4(
+	function (t, p, v, toMsg) {
+		return A2(
+			$elm$html$Html$input,
+			_List_fromArray(
+				[
+					$elm$html$Html$Attributes$type_(t),
+					$elm$html$Html$Attributes$placeholder(p),
+					$elm$html$Html$Attributes$value(v),
+					$elm$html$Html$Events$onInput(toMsg)
+				]),
+			_List_Nil);
+	});
+var $elm$virtual_dom$VirtualDom$style = _VirtualDom_style;
+var $elm$html$Html$Attributes$style = $elm$virtual_dom$VirtualDom$style;
+var $author$project$Main$viewValidation = function (model) {
+	var _v0 = $elm$core$String$toInt(model.y);
+	if (!_v0.$) {
+		var age = _v0.a;
+		return (age > 16) ? A2(
+			$elm$html$Html$div,
+			_List_fromArray(
+				[
+					A2($elm$html$Html$Attributes$style, 'color', 'green')
+				]),
+			_List_fromArray(
+				[
+					$elm$html$Html$text('OK')
+				])) : A2(
+			$elm$html$Html$div,
+			_List_fromArray(
+				[
+					A2($elm$html$Html$Attributes$style, 'color', 'red')
+				]),
+			_List_fromArray(
+				[
+					$elm$html$Html$text('Age must be greater than 16!')
+				]));
+	} else {
+		return A2(
+			$elm$html$Html$div,
+			_List_fromArray(
+				[
+					A2($elm$html$Html$Attributes$style, 'color', 'red')
+				]),
+			_List_fromArray(
+				[
+					$elm$html$Html$text('Bad age format.')
+				]));
+	}
+};
 var $author$project$Main$view = function (model) {
 	return A2(
 		$elm$html$Html$div,
@@ -5479,72 +5353,59 @@ var $author$project$Main$view = function (model) {
 		_List_fromArray(
 			[
 				A2(
-				$elm$html$Html$input,
+				$elm$html$Html$h2,
+				_List_Nil,
 				_List_fromArray(
 					[
-						$elm$html$Html$Attributes$type_('file'),
-						$elm$html$Html$Attributes$multiple(false),
-						A2(
-						$elm$html$Html$Events$on,
-						'change',
-						A2($elm$json$Json$Decode$map, $author$project$Main$ChooseFiles, $author$project$Main$filesDecoder))
-					]),
-				_List_Nil),
-				A2(
-				$elm$html$Html$button,
-				_List_fromArray(
-					[
-						$elm$html$Html$Events$onClick($author$project$Main$Read)
-					]),
-				_List_fromArray(
-					[
-						$elm$html$Html$text('Read')
+						$elm$html$Html$text('Welcome to my Rust/Elm insurance quote calculation example.')
 					])),
 				A2(
-				$elm$html$Html$button,
+				$elm$html$Html$h2,
+				_List_Nil,
 				_List_fromArray(
 					[
-						$elm$html$Html$Events$onClick(
-						$author$project$Main$Send('hola desde Elm'))
-					]),
-				_List_fromArray(
-					[
-						$elm$html$Html$text('Test Outgoing Port')
+						$elm$html$Html$text('Here the user must fill the data for getting the insurance quote:')
 					])),
 				A2(
 				$elm$html$Html$div,
 				_List_Nil,
+				_List_fromArray(
+					[
+						A4($author$project$Main$viewInputText, 'number', 'Age', model.y, $author$project$Main$Age),
+						A4($author$project$Main$viewInputText, 'number', 'Driving Experience Years', model.F, $author$project$Main$DrivingExperience),
+						A4($author$project$Main$viewInputText, 'text', 'Vehicle Make', model.G, $author$project$Main$VehicleMake),
+						A4($author$project$Main$viewInputText, 'text', 'Vehicle Model', model.H, $author$project$Main$VehicleModel),
+						A4($author$project$Main$viewInputText, 'number', 'Vehicle Year', model.I, $author$project$Main$VehicleYear),
+						$author$project$Main$viewValidation(model),
+						A2(
+						$elm$html$Html$button,
+						_List_fromArray(
+							[
+								$elm$html$Html$Events$onClick(
+								$author$project$Main$Send('hola desde Elm'))
+							]),
+						_List_fromArray(
+							[
+								$elm$html$Html$text('Get insurance quote!')
+							]))
+					])),
 				A2(
-					$elm$core$List$map,
-					function (file) {
-						return A2(
-							$elm$html$Html$div,
-							_List_Nil,
-							_List_fromArray(
-								[
-									A2(
-									$elm$html$Html$p,
-									_List_Nil,
-									_List_fromArray(
-										[
-											$elm$html$Html$text(
-											$elm$file$File$name(file.A))
-										])),
-									$elm$html$Html$text(file.G),
-									A2($elm$html$Html$hr, _List_Nil, _List_Nil)
-								]));
-					},
-					model.r))
+				$elm$html$Html$h2,
+				_List_Nil,
+				_List_fromArray(
+					[
+						$elm$html$Html$text('The pricing engine (in Rust, running on client by means of WebAssembly for this example ) will be shown here after pressing the button:')
+					]))
 			]));
 };
 var $author$project$Main$main = $elm$browser$Browser$element(
 	{
-		aw: $author$project$Main$initialModel,
-		aC: function (_v0) {
+		ay: $author$project$Main$init,
+		aE: function (_v0) {
 			return $elm$core$Platform$Sub$none;
 		},
-		aE: $author$project$Main$update,
-		aF: $author$project$Main$view
+		aG: $author$project$Main$update,
+		aH: $author$project$Main$view
 	});
 _Platform_export({'Main':{'init':$author$project$Main$main(
 	$elm$json$Json$Decode$succeed(0))(0)}});}(this));
