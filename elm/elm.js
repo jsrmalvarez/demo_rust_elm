@@ -5233,7 +5233,7 @@ var $elm$html$Html$button = _VirtualDom_node('button');
 var $elm$html$Html$div = _VirtualDom_node('div');
 var $elm$html$Html$h2 = _VirtualDom_node('h2');
 var $author$project$Main$modelToJsonString = function (model) {
-	return '{' + ('\"age\": ' + (model.v + (', ' + ('\"drivingExperience\": ' + (model.A + (', ' + ('\"vehicleMake\": \"' + (model.G + ('\", ' + ('\"vehicleModel\": \"' + (model.H + ('\", ' + ('\"vehicleYear\": ' + (model.I + '}'))))))))))))));
+	return '{' + ('\"age\": ' + (model.v + (', ' + ('\"driving_experience\": ' + (model.A + (', ' + ('\"vehicle_make\": \"' + (model.G + ('\", ' + ('\"vehicle_model\": \"' + (model.H + ('\", ' + ('\"vehicle_year\": ' + (model.I + '}'))))))))))))));
 };
 var $elm$virtual_dom$VirtualDom$Normal = function (a) {
 	return {$: 0, a: a};

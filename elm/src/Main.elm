@@ -52,10 +52,10 @@ modelToJsonString : Model -> String
 modelToJsonString model =
   "{" ++
   "\"age\": " ++  model.age ++ ", " ++
-  "\"drivingExperience\": " ++  model.drivingExperience ++ ", " ++
-  "\"vehicleMake\": \"" ++  model.vehicleMake ++ "\", " ++
-  "\"vehicleModel\": \"" ++  model.vehicleModel ++ "\", " ++
-  "\"vehicleYear\": " ++  model.vehicleYear ++
+  "\"driving_experience\": " ++  model.drivingExperience ++ ", " ++
+  "\"vehicle_make\": \"" ++  model.vehicleMake ++ "\", " ++
+  "\"vehicle_model\": \"" ++  model.vehicleModel ++ "\", " ++
+  "\"vehicle_year\": " ++  model.vehicleYear ++
   "}"
 
 -- UPDATE

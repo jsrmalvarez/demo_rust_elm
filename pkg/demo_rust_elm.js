@@ -72,12 +72,12 @@ function passStringToWasm0(arg, malloc, realloc) {
     return ptr;
 }
 /**
-* @param {string} name
+* @param {string} json_data
 */
-export function greet(name) {
-    const ptr0 = passStringToWasm0(name, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+export function get_insurance_quote(json_data) {
+    const ptr0 = passStringToWasm0(json_data, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
     const len0 = WASM_VECTOR_LEN;
-    wasm.greet(ptr0, len0);
+    wasm.get_insurance_quote(ptr0, len0);
 }
 
 async function load(module, imports) {
