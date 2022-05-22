@@ -48,7 +48,15 @@ init _ =
    ,
    Cmd.none)
 
-
+modelToJsonString : Model -> String
+modelToJsonString model =
+  "{" ++
+  "\"age\": " ++  model.age ++ ", " ++
+  "\"drivingExperience\": " ++  model.drivingExperience ++ ", " ++
+  "\"vehicleMake\": \"" ++  model.vehicleMake ++ "\", " ++
+  "\"vehicleModel\": \"" ++  model.vehicleModel ++ "\", " ++
+  "\"vehicleYear\": " ++  model.vehicleYear ++
+  "}"
 
 -- UPDATE
 
@@ -99,7 +107,7 @@ view model =
       , viewInputText "text""Vehicle Model" model.vehicleModel VehicleModel
       , viewInputText "number" "Vehicle Year" model.vehicleYear VehicleYear
       , viewValidation model
-      , button [ onClick (Send "hola desde Elm") ] [ text "Get insurance quote!" ]
+      , button [ onClick (Send (modelToJsonString model)) ] [ text "Get insurance quote!" ]
       ]
     , h2 [] ["The pricing engine (in Rust, running on client by means of WebAssembly for this example ) will be shown here after pressing the button:" |> Html.text ]
     ]

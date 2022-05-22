@@ -784,11 +784,11 @@ function _Debug_crash_UNUSED(identifier, fact1, fact2, fact3, fact4)
 
 function _Debug_regionToString(region)
 {
-	if (region.N.A === region.S.A)
+	if (region.N.B === region.S.B)
 	{
-		return 'on line ' + region.N.A;
+		return 'on line ' + region.N.B;
 	}
-	return 'on lines ' + region.N.A + ' through ' + region.S.A;
+	return 'on lines ' + region.N.B + ' through ' + region.S.B;
 }
 
 
@@ -5157,7 +5157,7 @@ var $elm$core$Platform$Cmd$batch = _Platform_batch;
 var $elm$core$Platform$Cmd$none = $elm$core$Platform$Cmd$batch(_List_Nil);
 var $author$project$Main$init = function (_v0) {
 	return _Utils_Tuple2(
-		{y: '30', F: '10', G: 'Škoda', H: 'Superb', I: '2015'},
+		{v: '30', A: '10', G: 'Škoda', H: 'Superb', I: '2015'},
 		$elm$core$Platform$Cmd$none);
 };
 var $elm$core$Platform$Sub$batch = _Platform_batch;
@@ -5172,14 +5172,14 @@ var $author$project$Main$update = F2(
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
-						{y: age}),
+						{v: age}),
 					$elm$core$Platform$Cmd$none);
 			case 1:
 				var drivingExperience = msg.a;
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
-						{F: drivingExperience}),
+						{A: drivingExperience}),
 					$elm$core$Platform$Cmd$none);
 			case 2:
 				var vehicleMake = msg.a;
@@ -5232,6 +5232,9 @@ var $author$project$Main$VehicleYear = function (a) {
 var $elm$html$Html$button = _VirtualDom_node('button');
 var $elm$html$Html$div = _VirtualDom_node('div');
 var $elm$html$Html$h2 = _VirtualDom_node('h2');
+var $author$project$Main$modelToJsonString = function (model) {
+	return '{' + ('\"age\": ' + (model.v + (', ' + ('\"drivingExperience\": ' + (model.A + (', ' + ('\"vehicleMake\": \"' + (model.G + ('\", ' + ('\"vehicleModel\": \"' + (model.H + ('\", ' + ('\"vehicleYear\": ' + (model.I + '}'))))))))))))));
+};
 var $elm$virtual_dom$VirtualDom$Normal = function (a) {
 	return {$: 0, a: a};
 };
@@ -5311,7 +5314,7 @@ var $author$project$Main$viewInputText = F4(
 var $elm$virtual_dom$VirtualDom$style = _VirtualDom_style;
 var $elm$html$Html$Attributes$style = $elm$virtual_dom$VirtualDom$style;
 var $author$project$Main$viewValidation = function (model) {
-	var _v0 = $elm$core$String$toInt(model.y);
+	var _v0 = $elm$core$String$toInt(model.v);
 	if (!_v0.$) {
 		var age = _v0.a;
 		return (age > 16) ? A2(
@@ -5371,8 +5374,8 @@ var $author$project$Main$view = function (model) {
 				_List_Nil,
 				_List_fromArray(
 					[
-						A4($author$project$Main$viewInputText, 'number', 'Age', model.y, $author$project$Main$Age),
-						A4($author$project$Main$viewInputText, 'number', 'Driving Experience Years', model.F, $author$project$Main$DrivingExperience),
+						A4($author$project$Main$viewInputText, 'number', 'Age', model.v, $author$project$Main$Age),
+						A4($author$project$Main$viewInputText, 'number', 'Driving Experience Years', model.A, $author$project$Main$DrivingExperience),
 						A4($author$project$Main$viewInputText, 'text', 'Vehicle Make', model.G, $author$project$Main$VehicleMake),
 						A4($author$project$Main$viewInputText, 'text', 'Vehicle Model', model.H, $author$project$Main$VehicleModel),
 						A4($author$project$Main$viewInputText, 'number', 'Vehicle Year', model.I, $author$project$Main$VehicleYear),
@@ -5382,7 +5385,8 @@ var $author$project$Main$view = function (model) {
 						_List_fromArray(
 							[
 								$elm$html$Html$Events$onClick(
-								$author$project$Main$Send('hola desde Elm'))
+								$author$project$Main$Send(
+									$author$project$Main$modelToJsonString(model)))
 							]),
 						_List_fromArray(
 							[

@@ -20,7 +20,9 @@
       });      
 
       app.ports.sendMessage.subscribe(function(message) {
-          alert("Received from elm:" + message);
+          data = JSON.parse(message);
+          console.log(data);
+          //alert("Received from elm:" + JSON.stringify(JSON.parse(message), undefined, 2));
       });
     </script>
   </body>
