@@ -5163,7 +5163,7 @@ var $elm$core$Platform$Cmd$batch = _Platform_batch;
 var $elm$core$Platform$Cmd$none = $elm$core$Platform$Cmd$batch(_List_Nil);
 var $author$project$Main$init = function (_v0) {
 	return _Utils_Tuple2(
-		{age: '30', drivingExperience: '10', insuranceQuote: '219.01', vehicleMake: 'Škoda', vehicleModel: 'Superb', vehicleYear: '2015'},
+		{age: '30', drivingExperience: '10', insuranceQuote: '£ 219.01', vehicleMake: 'Škoda', vehicleModel: 'Superb', vehicleYear: '2015'},
 		$elm$core$Platform$Cmd$none);
 };
 var $elm$core$Platform$Sub$batch = _Platform_batch;
@@ -5248,8 +5248,6 @@ var $author$project$Main$VehicleModel = function (a) {
 var $author$project$Main$VehicleYear = function (a) {
 	return {$: 'VehicleYear', a: a};
 };
-var $elm$html$Html$div = _VirtualDom_node('div');
-var $elm$html$Html$h2 = _VirtualDom_node('h2');
 var $elm$html$Html$Attributes$stringProperty = F2(
 	function (key, string) {
 		return A2(
@@ -5257,6 +5255,10 @@ var $elm$html$Html$Attributes$stringProperty = F2(
 			key,
 			$elm$json$Json$Encode$string(string));
 	});
+var $elm$html$Html$Attributes$class = $elm$html$Html$Attributes$stringProperty('className');
+var $elm$html$Html$div = _VirtualDom_node('div');
+var $elm$html$Html$form = _VirtualDom_node('form');
+var $elm$html$Html$h2 = _VirtualDom_node('h2');
 var $elm$html$Html$Attributes$id = $elm$html$Html$Attributes$stringProperty('id');
 var $elm$html$Html$input = _VirtualDom_node('input');
 var $elm$html$Html$label = _VirtualDom_node('label');
@@ -5323,7 +5325,6 @@ var $author$project$Main$slider = F6(
 					_List_Nil)
 				]));
 	});
-var $elm$html$Html$span = _VirtualDom_node('span');
 var $author$project$Main$viewInputText = F4(
 	function (t, p, v, toMsg) {
 		return A2(
@@ -5396,15 +5397,60 @@ var $author$project$Main$view = function (model) {
 						$elm$html$Html$text('Here the user must fill the data for getting the insurance quote:')
 					])),
 				A2(
-				$elm$html$Html$div,
+				$elm$html$Html$form,
 				_List_Nil,
 				_List_fromArray(
 					[
-						A6($author$project$Main$slider, 'Age: ' + model.age, '0', '150', 'Age', model.age, $author$project$Main$Age),
-						A6($author$project$Main$slider, 'Driving Experience Years: ' + model.drivingExperience, '0', '90', 'Driving Experience Years', model.drivingExperience, $author$project$Main$DrivingExperience),
-						A4($author$project$Main$viewInputText, 'text', 'Vehicle Make', model.vehicleMake, $author$project$Main$VehicleMake),
-						A4($author$project$Main$viewInputText, 'text', 'Vehicle Model', model.vehicleModel, $author$project$Main$VehicleModel),
-						A4($author$project$Main$viewInputText, 'number', 'Vehicle Year', model.vehicleYear, $author$project$Main$VehicleYear),
+						A2(
+						$elm$html$Html$div,
+						_List_fromArray(
+							[
+								$elm$html$Html$Attributes$class('form-group')
+							]),
+						_List_fromArray(
+							[
+								A6($author$project$Main$slider, 'Age: ' + model.age, '0', '150', 'Age', model.age, $author$project$Main$Age)
+							])),
+						A2(
+						$elm$html$Html$div,
+						_List_fromArray(
+							[
+								$elm$html$Html$Attributes$class('form-group')
+							]),
+						_List_fromArray(
+							[
+								A6($author$project$Main$slider, 'Driving Experience Years: ' + model.drivingExperience, '0', '90', 'Driving Experience Years', model.drivingExperience, $author$project$Main$DrivingExperience)
+							])),
+						A2(
+						$elm$html$Html$div,
+						_List_fromArray(
+							[
+								$elm$html$Html$Attributes$class('form-group')
+							]),
+						_List_fromArray(
+							[
+								A4($author$project$Main$viewInputText, 'text', 'Vehicle Make', model.vehicleMake, $author$project$Main$VehicleMake)
+							])),
+						A2(
+						$elm$html$Html$div,
+						_List_fromArray(
+							[
+								$elm$html$Html$Attributes$class('form-group')
+							]),
+						_List_fromArray(
+							[
+								A4($author$project$Main$viewInputText, 'text', 'Vehicle Model', model.vehicleModel, $author$project$Main$VehicleModel)
+							])),
+						A2(
+						$elm$html$Html$div,
+						_List_fromArray(
+							[
+								$elm$html$Html$Attributes$class('form-group')
+							]),
+						_List_fromArray(
+							[
+								A6($author$project$Main$slider, 'Vehicle Year: ' + model.vehicleYear, '1950', '2022', 'Vehicle Year', model.vehicleYear, $author$project$Main$VehicleYear)
+							])),
 						$author$project$Main$viewValidation(model)
 					])),
 				A2(
@@ -5415,10 +5461,11 @@ var $author$project$Main$view = function (model) {
 						$elm$html$Html$text('The pricing engine (in Rust, running on client by means of WebAssembly for this example ) will be shown here:')
 					])),
 				A2(
-				$elm$html$Html$span,
+				$elm$html$Html$h2,
 				_List_fromArray(
 					[
-						$elm$html$Html$Attributes$id('quote_element')
+						$elm$html$Html$Attributes$id('quote_element'),
+						$elm$html$Html$Attributes$class('text-primary')
 					]),
 				_List_fromArray(
 					[

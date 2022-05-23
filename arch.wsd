@@ -1,0 +1,46 @@
+@startuml
+
+node "Browser" {
+    [javascript engine]
+    [WebAssembly]
+
+    folder {
+    [demo_rust_elm.js]
+    }
+
+    folder {
+    [Rust executable]
+    }
+
+    folder {
+    [elm.js]
+    }
+}
+
+folder {
+  [Rust compiler]
+}
+
+folder {
+  [Rust code]
+}
+
+folder {
+  [Elm compiler]
+}
+
+folder {
+  [Elm code]
+}
+
+[javascript engine] -- [elm.js]
+[Elm code] -- [Elm compiler]
+[Elm compiler] -- [elm.js]
+[javascript engine] -- [demo_rust_elm.js]
+[demo_rust_elm.js] -- [Rust compiler]
+[demo_rust_elm.js] -- [WebAssembly]
+[Rust executable] -- [Rust compiler]
+[Rust compiler] -- [Rust code]
+[WebAssembly] -- [Rust executable]
+
+@enduml

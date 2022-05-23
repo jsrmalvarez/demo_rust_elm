@@ -2,7 +2,9 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Rust and Elm demo</title>
+    <title>Rust and Elm insurance quote demo</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
   </head>
   <body>
     <div id="elm-app"></div>
@@ -22,7 +24,10 @@
             let response = JSON.parse(json_response_str);
             let result_element = document.getElementById('quote_element');
             if(response.ok){
-              result_element.innerHTML = response.quote_cents;
+              console.log(response.quote_cents);
+              let integer = response.quote_cents.substring(0, response.quote_cents.length - 2);
+              let cents = response.quote_cents.slice(-2);
+              result_element.innerHTML = "£" + integer + "." + cents;
             }
             else{
               result_element.innerHTML = response.err_reason;
@@ -30,6 +35,13 @@
       });
         });
     </script>
+    <h2>Demo overview</h2>
+    <p>This demo leverages WebAssembly to run Rust compiled code. The view and controls are implemented using Elm language.</p>
+    <img src="img/architecture.jpg"></img>
+    <p>The Rust part is responsible of the insurance quote calculation, from the data captured out of the form.</p>
+    <p>To simulate a data base, the Rust code uses a match construct to get a base quote and then applies some coefficients based on the age and the driving experience years of the user.</p>
+    <p>The Elm part shows the user controls, captures data, sends it to Rust and shows the result.</p>
+    <img src="img/data_flow.jpg"></img>
   </body>
 </html>
 

@@ -45,7 +45,7 @@ init _ =
    , vehicleMake = "Škoda"
    , vehicleModel = "Superb"
    , vehicleYear = "2015"
-   , insuranceQuote = "219.01"
+   , insuranceQuote = "£ 219.01"
    }
    ,
    Cmd.none)
@@ -103,18 +103,23 @@ view model =
   div []
     [ h2 [] ["Welcome to my Rust/Elm insurance quote calculation example." |> Html.text ]
     , h2 [] ["Here the user must fill the data for getting the insurance quote:" |> Html.text ]
-    , div []
-      [ slider ("Age: " ++ model.age) "0" "150" "Age" model.age Age
-      , slider ("Driving Experience Years: " ++ model.drivingExperience)
+    , Html.form [] 
+    [ div [class "form-group"]
+      [ slider ("Age: " ++ model.age) "0" "150" "Age" model.age Age ]
+    , div [class "form-group"]
+      [ slider ("Driving Experience Years: " ++ model.drivingExperience)
         "0" "90" "Driving Experience Years" model.drivingExperience DrivingExperience
-      , viewInputText "text" "Vehicle Make" model.vehicleMake VehicleMake
-      , viewInputText "text""Vehicle Model" model.vehicleModel VehicleModel
-      , viewInputText "number" "Vehicle Year" model.vehicleYear VehicleYear
-      , viewValidation model
---      , button [ onClick (Send (modelToJsonString model)) ] [ text "Get insurance quote!" ]
       ]
+    , div [class "form-group"]
+      [ viewInputText "text" "Vehicle Make" model.vehicleMake VehicleMake ]
+    , div [class "form-group"]
+      [ viewInputText "text""Vehicle Model" model.vehicleModel VehicleModel ]
+    , div [class "form-group"]
+      [ slider ("Vehicle Year: " ++ model.vehicleYear) "1950" "2022" "Vehicle Year" model.vehicleYear VehicleYear ]
+    , viewValidation model
+    ]
     , h2 [] ["The pricing engine (in Rust, running on client by means of WebAssembly for this example ) will be shown here:" |> Html.text ]
-    , span [id "quote_element"] [ model.insuranceQuote |> Html.text ]
+    , h2 [id "quote_element", class "text-primary"] [ model.insuranceQuote |> Html.text ]
     ]
 
 slider: String -> String -> String -> String -> String -> (String -> msg) -> Html msg

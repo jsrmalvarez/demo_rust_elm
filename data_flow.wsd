@@ -1,0 +1,19 @@
+@startuml
+actor User
+boundary elm.js
+boundary demo_rust_elm.js
+boundary WebAssembly_Rust
+User -> elm.js: data input
+elm.js -> demo_rust_elm.js : json data model
+demo_rust_elm.js -> WebAssembly_Rust : json data model
+WebAssembly_Rust -> WebAssembly_Rust : convert to Rust struct
+WebAssembly_Rust -> WebAssembly_Rust : search fake database
+WebAssembly_Rust -> WebAssembly_Rust : compute insurance quote
+WebAssembly_Rust -> WebAssembly_Rust : format the result in JSON
+WebAssembly_Rust -> WebAssembly_Rust : send back
+WebAssembly_Rust -> demo_rust_elm.js
+demo_rust_elm.js -> elm.js
+elm.js -> User : update view
+
+
+@enduml
