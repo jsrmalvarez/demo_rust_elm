@@ -35,6 +35,7 @@ type alias Model =
      , vehicleMake : String
      , vehicleModel: String
      , vehicleYear : String
+     , insuranceQuote: String
      }
 
 init : () -> (Model, Cmd msg)
@@ -44,6 +45,7 @@ init _ =
    , vehicleMake = "Škoda"
    , vehicleModel = "Superb"
    , vehicleYear = "2015"
+   , insuranceQuote = "219.01"
    }
    ,
    Cmd.none)
@@ -75,21 +77,22 @@ update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
   case msg of
     Age age ->
-      ({ model | age = age }, Cmd.none)
+      { model | age = age } |> update (Send (modelToJsonString model))
 
     DrivingExperience drivingExperience ->
-      ({ model | drivingExperience = drivingExperience }, Cmd.none)
+      { model | drivingExperience = drivingExperience } |> update (Send (modelToJsonString model))
 
     VehicleMake vehicleMake ->
-      ({ model | vehicleMake = vehicleMake }, Cmd.none)
+      { model | vehicleMake = vehicleMake } |> update (Send (modelToJsonString model))
 
     VehicleModel vehicleModel ->
-      ({ model | vehicleModel = vehicleModel }, Cmd.none)
+      { model | vehicleModel = vehicleModel } |> update (Send (modelToJsonString model))
 
     VehicleYear vehicleYear ->
-      ({ model | vehicleYear = vehicleYear }, Cmd.none)
+      { model | vehicleYear = vehicleYear } |> update (Send (modelToJsonString model))
     
     IncorrectInput _ -> (model, Cmd.none)
+
     Send m -> (model, sendMessage m)
 
 -- VIEW
@@ -101,15 +104,24 @@ view model =
     [ h2 [] ["Welcome to my Rust/Elm insurance quote calculation example." |> Html.text ]
     , h2 [] ["Here the user must fill the data for getting the insurance quote:" |> Html.text ]
     , div []
-      [ viewInputText "number" "Age" model.age Age
-      , viewInputText "number" "Driving Experience Years" model.drivingExperience DrivingExperience
+      [ slider ("Age: " ++ model.age) "0" "150" "Age" model.age Age
+      , slider ("Driving Experience Years: " ++ model.drivingExperience)
+        "0" "90" "Driving Experience Years" model.drivingExperience DrivingExperience
       , viewInputText "text" "Vehicle Make" model.vehicleMake VehicleMake
       , viewInputText "text""Vehicle Model" model.vehicleModel VehicleModel
       , viewInputText "number" "Vehicle Year" model.vehicleYear VehicleYear
       , viewValidation model
-      , button [ onClick (Send (modelToJsonString model)) ] [ text "Get insurance quote!" ]
+--      , button [ onClick (Send (modelToJsonString model)) ] [ text "Get insurance quote!" ]
       ]
-    , h2 [] ["The pricing engine (in Rust, running on client by means of WebAssembly for this example ) will be shown here after pressing the button:" |> Html.text ]
+    , h2 [] ["The pricing engine (in Rust, running on client by means of WebAssembly for this example ) will be shown here:" |> Html.text ]
+    , span [id "quote_element"] [ model.insuranceQuote |> Html.text ]
+    ]
+
+slider: String -> String -> String -> String -> String -> (String -> msg) -> Html msg
+slider l min max p val toMsg =
+  label []
+    [ text l
+    , input [type_ "range", Html.Attributes.max max, Html.Attributes.min min, placeholder p, value val, onInput toMsg] []
     ]
 
 

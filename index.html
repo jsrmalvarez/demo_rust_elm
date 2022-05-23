@@ -17,11 +17,16 @@
       import init, {get_insurance_quote} from "./pkg/demo_rust_elm.js";
       init()
         .then(() => {
-          app.ports.sendMessage.subscribe(function(message) {
-            let data = JSON.parse(message);
-            console.log(data);
-            console.log(get_insurance_quote(message));
-            //alert("Received from elm:" + JSON.stringify(JSON.parse(message), undefined, 2));
+          app.ports.sendMessage.subscribe(function(json_data_str) {
+            let json_response_str = get_insurance_quote(json_data_str);
+            let response = JSON.parse(json_response_str);
+            let result_element = document.getElementById('quote_element');
+            if(response.ok){
+              result_element.innerHTML = response.quote_cents;
+            }
+            else{
+              result_element.innerHTML = response.err_reason;
+            }
       });
         });
     </script>
